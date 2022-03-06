@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="header">
+<header role="header">
+    <div class="container">
+
+        <!-- logo -->
+
+<!--        <img src="../../static/admin/images/rose.png" height="60" width="50"/>-->
+        <h1> <a th:href="@{/}" title="avana LLC"><img th:src="@{http://m.qpic.cn/psc?/V13AEVc50cXSDR/bqQfVz5yrrGYSXMvKr.cqUz3G5II2x1nSHbAMx0qJD.*b7AgSBV31DtoLg8xF91y56dIhmJYD567LBtqaSZZ7wVDbaj1P.1rh.G5QxdoHn8!/mnull&bo=RQIUAgAAAAABB3E!&rf=photolist&t=5}" style="width: 66px;" title="avana zp" alt="avana LLC"/></a> </h1>
+
+        <!-- logo -->
+
+        <!-- nav -->
+
+        <nav role="header-nav" class="navy">
+            <ul>
+                <li th:class="${active == 'work' ? 'nav-active':''}"><a th:href="@{/}" title="Work">Work</a></li>
+                <li th:class="${active == 'about' ? 'nav-active':''}"><a  th:href="@{/about}" title="About">About</a></li>
+                <li th:class="${active == 'blog' ? 'nav-active':''}"><a th:href="@{/blog/index}" title="Blog">Blog</a></li>
+            </ul>
+        </nav>
+
+        <!-- nav -->
+
+    </div>
+</header>
+</html>
