@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cn.luischen</groupId>
-	<artifactId>my-site</artifactId>
+	<groupId>cn.Drose</groupId>
+	<artifactId>my-blog</artifactId>
 	<version>1.0.2.RELEASE</version>
 	<packaging>jar</packaging>
 
-	<name>my-site</name>
+	<name>my-blog</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -168,6 +168,7 @@
     </dependencies>
 
 	<build>
+		<finalName>dr-my-blog</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

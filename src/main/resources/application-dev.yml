@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8090
 
 
 spring:
@@ -12,9 +12,9 @@ spring:
           filters: stat
           driver-class-name: com.mysql.jdbc.Driver
           #基本属性
-          url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-          username: root
-          password: zp.6330330
+          url: jdbc:mysql://rm-bp1fka7dq724021579o.mysql.rds.aliyuncs.com:3306/zpno1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          username: yhl
+          password: yhl@2022
           #配置初始化大小/最小/最大
           initial-size: 1
           min-idle: 1

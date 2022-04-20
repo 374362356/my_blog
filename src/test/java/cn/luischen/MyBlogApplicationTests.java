@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MySiteApplicationTests {
+public class MyBlogApplicationTests {
 
 	@Autowired
 	DataSource dataSource;
