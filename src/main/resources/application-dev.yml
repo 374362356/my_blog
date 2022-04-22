@@ -63,7 +63,7 @@ pagehelper:
 
 logging:
   level:
-    cn.luischen.dao : DEBUG
+    cn.drose.dao : DEBUG
 
 swagger:
   show: true
