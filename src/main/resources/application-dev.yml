@@ -81,3 +81,9 @@ qiniu:
   bucket: "yhl-cv"
   cdn:
     url: "yhlssh.top/"
+
+upload:
+  url: https://github.com/374362356/github_images/tree
+  profiles: /main
+  path: /img/test/
+  cdnurl: cdn.jsdelivr.net/gh/374362356/github_images

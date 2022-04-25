@@ -12,6 +12,7 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.imageio.ImageIO;
@@ -59,6 +60,9 @@ public class TaleUtils {
      * 获取文件所在目录
      */
     private static String location = TaleUtils.class.getClassLoader().getResource("").getPath();
+
+    @Value("${upload.path}")
+    private static String path;
 
     /**
      * 判断是否是邮箱
@@ -410,7 +414,7 @@ public class TaleUtils {
     }
 
     public static String getFileKey(String name) {
-        String prefix = "/upload/" + DateKit.dateFormat(new Date(), "yyyy/MM");
+        String prefix = path + DateKit.dateFormat(new Date(), "yyyy/MM");
         if (!new File(AttAchController.CLASSPATH + prefix).exists()) {
             new File(AttAchController.CLASSPATH + prefix).mkdirs();
         }
