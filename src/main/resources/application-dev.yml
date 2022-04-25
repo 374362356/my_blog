@@ -69,9 +69,15 @@ swagger:
   show: true
 
 
+#qiniu:
+#  accesskey: "rYvCVLjVyyGLE2WgviKp10sRXKGUJbGrX22urL4W"
+#  serectkey: "OzUVxnMK2Tj2W-2tk6BcmmxdwE7tfyiSMiJATpXS"
+#  bucket: "qqemail-zp"
+#  cdn:
+#    url: "qleyiopvu.hd-bkt.clouddn.com/"
 qiniu:
-  accesskey: "rYvCVLjVyyGLE2WgviKp10sRXKGUJbGrX22urL4W"
-  serectkey: "OzUVxnMK2Tj2W-2tk6BcmmxdwE7tfyiSMiJATpXS"
-  bucket: "qqemail-zp"
+  accesskey: "paWCYuCarLFbl4uv8DATd8KLcbG3clogDOijz5q1"
+  serectkey: "Q-f8sDCKMx4JLO2CBtjnCdG6gyxu_PZBrtu1fOJG"
+  bucket: "yhl-cv"
   cdn:
-    url: "qleyiopvu.hd-bkt.clouddn.com"
+    url: "yhlssh.top/"
