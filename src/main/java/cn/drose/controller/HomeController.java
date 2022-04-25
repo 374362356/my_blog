@@ -327,15 +327,18 @@ public class HomeController extends BaseController{
                                @RequestParam(name = "text", required = true) String text,
                                @RequestParam(name = "_csrf_token", required = true) String _csrf_token) {
 
-        String ref = request.getHeader("Referer");
-        if (StringUtils.isBlank(ref) || StringUtils.isBlank(_csrf_token)) {
-            return APIResponse.fail("访问失败");
-        }
-
-        String token = cache.hget(Types.CSRF_TOKEN.getType(), _csrf_token);
-        if (StringUtils.isBlank(token)) {
-            return APIResponse.fail("访问失败");
-        }
+        /**
+         *  先注释，解决不了浏览器  Referrer Policy: no-referrer 问题
+         */
+//        String ref = request.getHeader("Referer");
+//        if (StringUtils.isBlank(ref) || StringUtils.isBlank(_csrf_token)) {
+//            return APIResponse.fail("访问失败");
+//        }
+//
+//        String token = cache.hget(Types.CSRF_TOKEN.getType(), _csrf_token);
+//        if (StringUtils.isBlank(token)) {
+//            return APIResponse.fail("访问失败");
+//        }
 
         if (null == cid || StringUtils.isBlank(text)) {
             return APIResponse.fail("请输入完整后评论");
