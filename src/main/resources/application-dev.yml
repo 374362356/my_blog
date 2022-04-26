@@ -83,7 +83,8 @@ qiniu:
     url: "yhlssh.top/"
 
 upload:
-  url: https://github.com/374362356/github_images/tree
+  url: https://api.github.com/repos/374362356/github_images/contents
   profiles: /main
   path: /img/test/
-  cdnurl: cdn.jsdelivr.net/gh/374362356/github_images
+  cdnurl: https://cdn.jsdelivr.net/gh/374362356/github_images
+  flag: 1

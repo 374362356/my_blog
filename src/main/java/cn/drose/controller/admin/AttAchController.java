@@ -5,6 +5,7 @@ import cn.drose.constant.ErrorConstant;
 import cn.drose.constant.Types;
 import cn.drose.constant.WebConst;
 import cn.drose.dto.AttAchDto;
+import cn.drose.dto.GitHubShaDto;
 import cn.drose.exception.BusinessException;
 import cn.drose.model.AttAchDomain;
 import cn.drose.model.UserDomain;
@@ -12,6 +13,7 @@ import cn.drose.service.attach.AttAchService;
 import cn.drose.utils.APIResponse;
 import cn.drose.utils.Commons;
 import cn.drose.utils.TaleUtils;
+import cn.drose.utils.UploadFileUtils;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +21,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +44,17 @@ public class AttAchController {
 
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
 
+    @Value("${upload.url}")
+    private String requestUrl;
+
+    @Value("${upload.path}")
+    private String path;
+
+    @Value("${upload.flag}")
+    private String flag;
+
+    @Value("${upload.cdnurl}")
+    private String cdnUrl;
 
     @Autowired
     private AttAchService attAchService;
@@ -82,16 +96,27 @@ public class AttAchController {
             request.setCharacterEncoding( "utf-8" );
             response.setHeader( "Content-Type" , "text/html" );
 
-            String fileName = TaleUtils.getFileKey(file.getOriginalFilename()).replaceFirst("/","");
+            String fileName = TaleUtils.getFileKey(file.getOriginalFilename(),flag).replaceFirst("/","");
 
-            qiniuCloudService.upload(file, fileName);
+            GitHubShaDto dto = null;
+            if (!WebConst.switch_flag.equals(flag)){
+                String url = requestUrl + path;
+                dto = UploadFileUtils.upLoadFile(file, null,url + fileName,flag);
+                System.out.println("--上传到github返回体参数---------->"+dto);
+            }else {
+                qiniuCloudService.upload(file, fileName);
+            }
             AttAchDomain attAch = new AttAchDomain();
             HttpSession session = request.getSession();
             UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
             attAch.setAuthorId(sessionUser.getUid());
             attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
             attAch.setFname(fileName);
-            attAch.setFkey(qiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+            if (!WebConst.switch_flag.equals(flag)){
+                attAch.setFkey(cdnUrl + path + fileName);
+            }else {
+                attAch.setFkey(qiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+            }
             attAchService.addAttAch(attAch);
             response.getWriter().write( "{\"success\": 1, \"message\":\"上传成功\",\"url\":\"" + attAch.getFkey() + "\"}" );
         } catch (IOException e) {
@@ -122,16 +147,27 @@ public class AttAchController {
 
             for (MultipartFile file : files) {
 
-                String fileName = TaleUtils.getFileKey(file.getOriginalFilename()).replaceFirst("/","");
+                String fileName = TaleUtils.getFileKey(file.getOriginalFilename(),flag).replaceFirst("/","");
+                GitHubShaDto dto = null;
+                if (!WebConst.switch_flag.equals(flag)){
+                    String url = requestUrl + path;
+                    dto = UploadFileUtils.upLoadFile(file, null,url + fileName,flag);
+                    System.out.println("--上传到github返回体参数---------->"+dto);
+                }else {
+                    qiniuCloudService.upload(file, fileName);
+                }
 
-                qiniuCloudService.upload(file, fileName);
                 AttAchDomain attAch = new AttAchDomain();
                 HttpSession session = request.getSession();
                 UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
                 attAch.setAuthorId(sessionUser.getUid());
                 attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
                 attAch.setFname(fileName);
-                attAch.setFkey(qiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+                if (!WebConst.switch_flag.equals(flag)){
+                    attAch.setFkey(cdnUrl + path + fileName);
+                }else {
+                    attAch.setFkey(qiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+                }
                 attAchService.addAttAch(attAch);
             }
             return APIResponse.success();

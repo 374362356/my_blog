@@ -60,4 +60,9 @@ public class WebConst {
      * 上传文件最大1M
      */
     public static Integer MAX_FILE_SIZE = 1048576;
+
+    /**
+     *  上传选择不同渠道，0：七牛  1 github
+     */
+    public static String switch_flag = "0";
 }

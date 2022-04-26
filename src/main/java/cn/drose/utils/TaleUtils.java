@@ -61,8 +61,6 @@ public class TaleUtils {
      */
     private static String location = TaleUtils.class.getClassLoader().getResource("").getPath();
 
-    @Value("${upload.path}")
-    private static String path;
 
     /**
      * 判断是否是邮箱
@@ -413,15 +411,21 @@ public class TaleUtils {
         return file.getAbsolutePath() + "/";
     }
 
-    public static String getFileKey(String name) {
-        String prefix = path + DateKit.dateFormat(new Date(), "yyyy/MM");
+    public static String getFileKey(String name,String flag) {
+        String prefix =  DateKit.dateFormat(new Date(), "yyyy/MM");
         if (!new File(AttAchController.CLASSPATH + prefix).exists()) {
             new File(AttAchController.CLASSPATH + prefix).mkdirs();
         }
 
+        String symbol = "/";
+        if (!WebConst.switch_flag.equals(flag)){
+           symbol = "_";
+        }
+
         name = StringUtils.trimToNull(name);
         if (name == null) {
-            return prefix + "/" + UUID.UU32() + "." + null;
+
+            return prefix + symbol + UUID.UU32() + "." + null;
         } else {
             name = name.replace('\\', '/');
             name = name.substring(name.lastIndexOf("/") + 1);
@@ -430,7 +434,7 @@ public class TaleUtils {
             if (index >= 0) {
                 ext = StringUtils.trimToNull(name.substring(index + 1));
             }
-            return prefix + "/" + UUID.UU32() + "." + (ext == null ? null : (ext));
+            return prefix + symbol + UUID.UU32() + "." + (ext == null ? null : (ext));
         }
     }
 }
