@@ -787,6 +787,11 @@ color:#404040;
 	background-image: url(/site/images/social/icon-zhihu.png)
 }
 
+.icon.gitee{
+	background-image: url(/site/images/social/icon-gitee.png);
+	background-size: 200px 200px;
+}
+
 
 p>img {
 	display: block;

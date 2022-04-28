@@ -9,7 +9,7 @@
     <!-- 基本列 -->
     <sql id="BASE_COLUMN">
         cm.coid, cm.cid, cm.created, cm.author, cm.authorId, cm.ownerId, cm.mail,
-        cm.url, cm.ip, cm.agent, cm.type, cm.status, cm.parent, cm.content
+        cm.url, cm.ip, cm.agent, cm.type, cm.status, cm.parent, cm.content, cm.isDel
     </sql>
 
     <!-- 新增评论 -->
@@ -18,22 +18,30 @@
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
             cid, created, author, authorId, ownerId, mail,
-            url, ip, agent, type, status, parent, content,
+            url, ip, agent, type, status, parent, content, isDel
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
             #{cid,jdbcType=INTEGER}, #{created, jdbcType=INTEGER},
             #{author, jdbcType=VARCHAR}, #{authorId, jdbcType=INTEGER}, #{ownerId, jdbcType=INTEGER},
             #{mail, jdbcType=VARCHAR}, #{url, jdbcType=VARCHAR}, #{ip, jdbcType=VARCHAR}, #{agent, jdbcType=VARCHAR},
-            #{type, jdbcType=VARCHAR}, #{status, jdbcType=VARCHAR}, #{parent, jdbcType=INTEGER}, #{content, jdbcType=LONGVARCHAR},
+            #{type, jdbcType=VARCHAR}, #{status, jdbcType=VARCHAR}, #{parent, jdbcType=INTEGER}, #{content, jdbcType=LONGVARCHAR}, #{isDel,jdbcType=CHAR},
         </trim>
     </insert>
 
     <!-- 删除评论 -->
-    <delete id="deleteComment">
-        DELETE FROM
+<!--    <delete id="deleteComment">-->
+<!--        DELETE FROM-->
+<!--        <include refid="BASE_TABLE"/>-->
+<!--        WHERE coid = #{coid, jdbcType=INTEGER}-->
+<!--    </delete>-->
+
+    <update id="deleteComment">
+        update
         <include refid="BASE_TABLE"/>
-        WHERE coid = #{coid, jdbcType=INTEGER}
-    </delete>
+        set isDel = 'Y'
+        WHERE
+        coid = #{coid, jdbcType=INTEGER}
+    </update>
 
     <!-- 更新评论的状态 -->
     <update id="updateCommentStatus">
@@ -49,6 +57,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS cm
         WHERE cm.coid = #{coid, jdbcType=INTEGER}
+            and cm.isDel = 'N'
     </select>
 
     <!-- 根据文章的主键获取评论列表:只显示正常的评论 -->
@@ -58,7 +67,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS cm
         WHERE cm.cid =  #{cid,jdbcType=INTEGER}
-        AND cm.status = 'approved'
+        AND cm.status = 'approved' and cm.isDel = 'N'
         ORDER BY cm.created
     </select>
 
@@ -70,6 +79,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS cm
         <where>
+            cm.isDel = 'N'
             <if test="status != null">
                 AND cm.status = #{status, jdbcType=VARCHAR}
             </if>
@@ -90,6 +100,7 @@
         SELECT count(*)
         FROM
         <include refid="BASE_TABLE"/>
+        where isDel = 'N'
     </select>
 
 

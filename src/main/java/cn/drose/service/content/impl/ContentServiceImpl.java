@@ -10,6 +10,7 @@ import cn.drose.dto.cond.ContentCond;
 import cn.drose.exception.BusinessException;
 import cn.drose.model.CommentDomain;
 import cn.drose.model.ContentDomain;
+import cn.drose.model.MetaDomain;
 import cn.drose.model.RelationShipDomain;
 import cn.drose.service.content.ContentService;
 import cn.drose.service.meta.MetaService;
@@ -113,6 +114,7 @@ public class ContentServiceImpl implements ContentService {
     public void updateCategory(String ordinal, String newCatefory) {
         ContentCond cond = new ContentCond();
         cond.setCategory(ordinal);
+        cond.setIsDel("N");
         List<ContentDomain> atricles = contentDao.getArticlesByCond(cond);
         atricles.forEach(atricle -> {
             atricle.setCategories(atricle.getCategories().replace(ordinal, newCatefory));

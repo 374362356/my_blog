@@ -380,6 +380,7 @@ public class HomeController extends BaseController{
         comments.setContent(text);
         comments.setMail(mail);
         comments.setParent(coid);
+        comments.setIsDel("N");
         try {
             commentService.addComment(comments);
             cookie("tale_remember_author", URLEncoder.encode(author, "UTF-8"), 7 * 24 * 60 * 60, response);

@@ -112,6 +112,7 @@ public class AttAchController {
             attAch.setAuthorId(sessionUser.getUid());
             attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
             attAch.setFname(fileName);
+            attAch.setIsDel("N");
             if (!WebConst.switch_flag.equals(flag)){
                 attAch.setFkey(cdnUrl + path + fileName);
             }else {
@@ -168,6 +169,7 @@ public class AttAchController {
                 }else {
                     attAch.setFkey(qiniuCloudService.QINIU_UPLOAD_SITE + fileName);
                 }
+                attAch.setIsDel("N");
                 attAchService.addAttAch(attAch);
             }
             return APIResponse.success();

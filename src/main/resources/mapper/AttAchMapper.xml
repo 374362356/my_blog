@@ -13,7 +13,7 @@
 
     <!-- 附件的基本列 -->
     <sql id="BASE_COLUMN">
-        aa.id, aa.fname, aa.ftype, aa.fkey, aa.authorId, aa.created,
+        aa.id, aa.fname, aa.ftype, aa.fkey, aa.authorId, aa.created, aa.isDel,
     </sql>
 
     <!-- 关联查询的用户表需要的字段 -->
@@ -27,10 +27,10 @@
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            fname, ftype, fkey, authorId, created,
+            fname, ftype, fkey, authorId, created, isDel
         </trim>
         <trim  prefix="VALUES(" suffix=")" suffixOverrides=",">
-            #{fname, jdbcType=VARCHAR}, #{ftype, jdbcType=VARCHAR}, #{fkey, jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, UNIX_TIMESTAMP(NOW()),
+            #{fname, jdbcType=VARCHAR}, #{ftype, jdbcType=VARCHAR}, #{fkey, jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, UNIX_TIMESTAMP(NOW(),#{isDel,jdbcType=CHAR}),
         </trim>
     </insert>
 
@@ -39,25 +39,33 @@
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            fname, ftype, fkey, authorId, created,
+            fname, ftype, fkey, authorId, created, isDel
         </trim>
         VALUES
         <foreach collection="list" item="AttAchDomain" index="index" separator=",">
             (
               <trim suffix="" suffixOverrides=",">
-                  #{fname, jdbcType=VARCHAR}, #{ftype, jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, UNIX_TIMESTAMP(NOW()),
+                  #{fname, jdbcType=VARCHAR}, #{ftype, jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, UNIX_TIMESTAMP(NOW(),#{isDel,jdbcType=CHAR}),
               </trim>
             )
         </foreach>
     </insert>
 
     <!-- 删除附件 -->
-    <delete id="deleteAttAch">
-        DELETE FROM
+<!--    <delete id="deleteAttAch">-->
+<!--        DELETE FROM-->
+<!--        <include refid="BASE_TABLE"/>-->
+<!--        WHERE-->
+<!--        id = #{id, jdbcType=INTEGER}-->
+<!--    </delete>-->
+
+    <update id="deleteAttAch">
+        update
         <include refid="BASE_TABLE"/>
+        set isDel = 'Y'
         WHERE
         id = #{id, jdbcType=INTEGER}
-    </delete>
+    </update>
 
     <!-- 更新附件信息 -->
     <update id="updateAttAch" parameterType="cn.drose.model.AttAchDomain">
@@ -89,6 +97,7 @@
         LEFT JOIN <include refid="TABLE_USER"/> AS u
         ON aa.authorId = u.uid
         WHERE aa.id = #{id, jdbcType=INTEGER}
+            and aa.isDel = 'N'
     </select>
 
     <!-- 查找所有的附件 -->
@@ -102,6 +111,7 @@
         <include refid="BASE_TABLE"/> AS aa
         LEFT JOIN <include refid="TABLE_USER"/> AS u
         ON aa.authorId = u.uid
+        where aa.isDel = 'N'
         ORDER BY aa.created DESC
     </select>
 
@@ -110,6 +120,7 @@
         SELECT count(*)
         FROM
         <include refid="BASE_TABLE"/>
+        where isDel = 'N'
     </select>
 
 

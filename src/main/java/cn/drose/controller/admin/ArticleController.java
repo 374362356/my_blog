@@ -119,6 +119,7 @@ public class ArticleController extends BaseController {
         //只允许博客文章有分类，防止作品被收入分类
         contentDomain.setCategories(type.equals(Types.ARTICLE.getType()) ? categories : null);
         contentDomain.setAllowComment(allowComment ? 1 : 0);
+        contentDomain.setIsDel("N");
 
         contentService.addArticle(contentDomain);
 

@@ -86,6 +86,7 @@ public class CommentServiceImpl implements CommentService {
             comments.setOwnerId(article.getAuthorId());
             comments.setStatus(STATUS_MAP.get(STATUS_BLANK));
             comments.setCreated(DateKit.getCurrentUnixTime());
+            comments.setIsDel("N");
             commentDao.addComment(comments);
 
             ContentDomain temp = new ContentDomain();

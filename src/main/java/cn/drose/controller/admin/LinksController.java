@@ -72,6 +72,7 @@ public class LinksController extends BaseController {
             meta.setDescription(logo);
             meta.setSort(sort);
             meta.setType(Types.LINK.getType());
+            meta.setIsDel("N");
             if (null != mid){
                 meta.setMid(mid);
                 metaService.updateMeta(meta);

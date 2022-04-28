@@ -61,6 +61,7 @@ public class MetaServiceImpl implements MetaService {
             if (null == metas || metas.size() == 0){
                 MetaDomain metaDomain = new MetaDomain();
                 metaDomain.setName(name);
+                metaDomain.setIsDel("N");
                 if (null != mid){
                     MetaDomain meta = metaDao.getMetaById(mid);
                     if (null != meta)
@@ -117,6 +118,7 @@ public class MetaServiceImpl implements MetaService {
             metaDomain.setSlug(name);
             metaDomain.setName(name);
             metaDomain.setType(type);
+            metaDomain.setIsDel("N");
             this.addMeta(metaDomain);
             mid = metaDomain.getMid();
         }

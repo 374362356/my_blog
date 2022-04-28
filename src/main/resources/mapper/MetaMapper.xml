@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.drose.dao.MetaDao">
 
+    <resultMap id="BaseResultMap" type="cn.drose.model.MetaDomain">
+        <id column="mid" jdbcType="INTEGER" property="mid" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="slug" jdbcType="VARCHAR" property="slug" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="parent" jdbcType="INTEGER" property="parent" />
+    </resultMap>
+
+    <resultMap id="MetaDto" type="cn.drose.dto.MetaDto" extends="BaseResultMap">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
     <sql id="BASE_TABLE">
       t_metas
     </sql>
@@ -12,7 +26,7 @@
 
     <!-- 基本列 -->
     <sql id="BASE_COLUMN">
-        m.mid, m.name, m.slug, m.type, m.description, m.sort, m.parent
+        m.mid, m.name, m.slug, m.type, m.description, m.sort, m.parent, m.isDel
     </sql>
 
     <!-- 添加项目信息 -->
@@ -20,20 +34,28 @@
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            name, slug, type, description, sort, parent
+            name, slug, type, description, sort, parent, isDel
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
             #{name, jdbcType=VARCHAR}, #{slug, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR},
-            #{description, jdbcType=VARCHAR}, #{sort, jdbcType=INTEGER}, #{parent, jdbcType=INTEGER}
+            #{description, jdbcType=VARCHAR}, #{sort, jdbcType=INTEGER}, #{parent, jdbcType=INTEGER}, #{isDel,jdbcType=CHAR}
         </trim>
     </insert>
 
     <!-- 删除项目 -->
-    <delete id="deleteMetaById">
-        DELETE FROM
+<!--    <delete id="deleteMetaById">-->
+<!--        DELETE FROM-->
+<!--        <include refid="BASE_TABLE"/>-->
+<!--        WHERE mid = #{mid, jdbcType=INTEGER}-->
+<!--    </delete>-->
+
+    <update id="deleteMetaById">
+        update
         <include refid="BASE_TABLE"/>
-        WHERE mid = #{mid, jdbcType=INTEGER}
-    </delete>
+        set isDel = 'Y'
+        WHERE
+        mid = #{mid, jdbcType=INTEGER}
+    </update>
 
     <!-- 更新项目 -->
     <update id="updateMeta" parameterType="cn.drose.model.MetaDomain">
@@ -69,6 +91,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS m
         WHERE m.mid = #{mid, jdbcType=INTEGER}
+            and m.isDel = 'N'
     </select>
 
     <!-- 根据条件获取项目 -->
@@ -79,6 +102,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS m
         <where>
+            m.isDel = 'N'
             <if test="name != null">
                 AND m.name = #{name,jdbcType=VARCHAR}
             </if>
@@ -94,21 +118,9 @@
         FROM
         <include refid="BASE_TABLE"/>
         WHERE type = #{type, jdbcType=VARCHAR}
+            and isDel = 'N'
     </select>
 
-    <resultMap id="BaseResultMap" type="cn.drose.model.MetaDomain">
-        <id column="mid" jdbcType="INTEGER" property="mid" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="slug" jdbcType="VARCHAR" property="slug" />
-        <result column="type" jdbcType="VARCHAR" property="type" />
-        <result column="description" jdbcType="VARCHAR" property="description" />
-        <result column="sort" jdbcType="INTEGER" property="sort" />
-        <result column="parent" jdbcType="INTEGER" property="parent" />
-    </resultMap>
-
-    <resultMap id="MetaDto" type="cn.drose.dto.MetaDto" extends="BaseResultMap">
-        <result column="count" property="count" jdbcType="INTEGER"/>
-    </resultMap>
 
     <select id="selectFromSql" resultMap="MetaDto" parameterType="Map">
         select
@@ -117,6 +129,7 @@
         from <include refid="BASE_TABLE"/> AS a
         left join <include refid="RELATION_SHIP_TABLE"/> AS b on a.mid = b.mid
         where a.type = #{type}
+            and a.isDel = 'N'
         group by a.mid
         order by #{order}
         limit #{limit}

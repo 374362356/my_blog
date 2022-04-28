@@ -37,7 +37,7 @@ spring:
             check-template-location: true
             suffix: .html
             encoding: UTF-8
-            mode: LEGACYHTML5
+            mode: HTML
             cache: false
     aop:
       auto: true
