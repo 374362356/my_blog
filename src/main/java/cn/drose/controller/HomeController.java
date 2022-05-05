@@ -325,7 +325,7 @@ public class HomeController extends BaseController{
                                @RequestParam(name = "mail", required = false) String mail,
                                @RequestParam(name = "url", required = false) String url,
                                @RequestParam(name = "text", required = true) String text,
-                               @RequestParam(name = "_csrf_token", required = true) String _csrf_token) {
+                               @RequestParam(name = "_csrf_token", required = false) String _csrf_token) {
 
         /**
          *  先注释，解决不了浏览器  Referrer Policy: no-referrer 问题
@@ -462,6 +462,9 @@ public class HomeController extends BaseController{
             HttpServletRequest request
     ){
         ContentDomain article = contentService.getArticleById(cid);
+        List<CommentDomain> commentsPaginator = commentService.getCommentsByCId(cid);
+        request.setAttribute("comments", commentsPaginator);
+        request.setAttribute("article", article);
         request.setAttribute("archive", article);
         request.setAttribute("active","work");
         return "site/works-details";

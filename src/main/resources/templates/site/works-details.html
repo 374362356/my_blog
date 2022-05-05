@@ -76,8 +76,9 @@
 
                         </div>
 
-                        
 
+                        <!-- Comments -->
+                        <div th:replace="site/comments::comments"></div>
                     </div>
 
                 <!-- work details -->
@@ -95,5 +96,6 @@
         <div th:replace="site/footer::footer(${commons.site_title()},${commons.site_record()},${commons.site_url()})"></div>
 
     </body>
+    <div th:replace="comm/tale_comment::tale_comment"></div>
 
 </html>

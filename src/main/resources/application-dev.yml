@@ -13,8 +13,8 @@ spring:
           driver-class-name: com.mysql.jdbc.Driver
           #基本属性
           url: jdbc:mysql://rm-bp1fka7dq724021579o.mysql.rds.aliyuncs.com:3306/zpno1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
-          username: yhl
-          password: yhl@2022
+          username: *
+          password: *
           #配置初始化大小/最小/最大
           initial-size: 1
           min-idle: 1
