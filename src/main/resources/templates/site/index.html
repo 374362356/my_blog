@@ -30,7 +30,7 @@
             <figcaption>
               <h2><th:block th:text="${archive.title}" ></th:block></h2>
               <p><th:block th:utext="${commons.fmtdate_en(archive.created)}"></th:block></p>
-              <a th:href="${commons.photoPermalink(archive.cid)}">View more</a> </figcaption>
+              <a th:href="${commons.photoPermalink(archive.id)}">View more</a> </figcaption>
           </figure>
         </section>
       </th:block>
@@ -47,7 +47,7 @@
                 <figcaption>
                   <h2><th:block th:text="${archive.title}" ></th:block></h2>
                   <p><th:block th:utext="${commons.fmtdate_en(archive.created)}"></th:block></p>
-                  <a th:href="${commons.photoPermalink(archive.cid)}">View more</a> </figcaption>
+                  <a th:href="${commons.photoPermalink(archive.id)}">View more</a> </figcaption>
               </figure>
             </li>
           </th:block>
@@ -65,7 +65,7 @@
                 <figcaption>
                   <h2><th:block th:text="${archive.title}" ></th:block></h2>
                   <p><th:block th:utext="${commons.fmtdate_en(archive.created)}"></th:block></p>
-                  <a th:href="${commons.photoPermalink(archive.cid)}">View more</a> </figcaption>
+                  <a th:href="${commons.photoPermalink(archive.id)}">View more</a> </figcaption>
               </figure>
             </li>
           </th:block>

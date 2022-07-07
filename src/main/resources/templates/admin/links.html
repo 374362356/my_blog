@@ -24,7 +24,7 @@
                             </thead>
                             <tbody>
                             <th:block th:each="link : ${links}">
-                                <tr th:attr="mid=${link.mid}">
+                                <tr th:attr="mid=${link.id}">
                                     <td th:text="${link.name}"></td>
                                     <td><a th:href="@{${link.slug}}" target="_blank" th:text="${link.slug}"></a></td>
                                     <td th:text="${link.description}"></td>
@@ -33,7 +33,7 @@
                                         <a href="javascript:void(0)" onclick="editLink(this);"
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-edit"></i> <span>编辑</span></a>
-                                        <a href="javascript:void(0)" th:onclick="'delLink('+${link.mid}+');'"
+                                        <a href="javascript:void(0)" th:onclick="'delLink('+${link.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-trash-o"></i> <span>删除</span></a>
                                     </td>

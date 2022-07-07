@@ -25,24 +25,24 @@ public interface CommentDao {
 
     /**
      * 删除评论
-     * @param coid
+     * @param id
      * @return
      */
-    int deleteComment(@Param("coid") Integer coid);
+    int deleteComment(@Param("id") Integer id);
 
     /**
      * 更新评论的状态
-     * @param coid
+     * @param id
      * @return
      */
-    int updateCommentStatus(@Param("coid") Integer coid, @Param("status") String status);
+    int updateCommentStatus(@Param("id") Integer id, @Param("status") String status);
 
     /**
      * 获取单条评论
-     * @param coid
+     * @param id
      * @return
      */
-    CommentDomain getCommentById(@Param("coid") Integer coid);
+    CommentDomain getCommentById(@Param("id") Integer id);
     /**
      * 根据文章编号获取评论列表
      * @param cid

@@ -1,18 +1,22 @@
 package cn.drose.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 文章实体
  * Created by Donghua.Chen on 2018/4/29.
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContentDomain {
 
     /**
      * 文章的主键编号
      */
-    private Integer cid;
+    private Integer id;
     /**
      * 内容标题
      */

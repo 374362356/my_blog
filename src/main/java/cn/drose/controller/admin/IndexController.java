@@ -86,7 +86,7 @@ public class IndexController extends BaseController{
         UserDomain users = this.user(request);
         if (StringUtils.isNotBlank(screenName) && StringUtils.isNotBlank(email)) {
             UserDomain temp = new UserDomain();
-            temp.setUid(users.getUid());
+            temp.setId(users.getId());
             temp.setScreenName(screenName);
             temp.setEmail(email);
             userService.updateUserInfo(temp);
@@ -121,7 +121,7 @@ public class IndexController extends BaseController{
 
         try {
             UserDomain temp = new UserDomain();
-            temp.setUid(users.getUid());
+            temp.setId(users.getId());
             String pwd = TaleUtils.MD5encode(users.getUsername() + password);
             temp.setPassword(pwd);
             userService.updateUserInfo(temp);

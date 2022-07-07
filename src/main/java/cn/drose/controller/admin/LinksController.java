@@ -74,7 +74,7 @@ public class LinksController extends BaseController {
             meta.setType(Types.LINK.getType());
             meta.setIsDel("N");
             if (null != mid){
-                meta.setMid(mid);
+                meta.setId(mid);
                 metaService.updateMeta(meta);
             }else {
                 metaService.addMeta(meta);

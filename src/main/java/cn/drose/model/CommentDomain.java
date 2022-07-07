@@ -1,17 +1,21 @@
 package cn.drose.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Created by Donghua.Chen on 2018/4/29.
+ * 评论记录
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CommentDomain {
 
     /**
      * comment表主键
      */
-    private Integer coid;
+    private Integer id;
 
     /**
      * contents表主键,关联字段

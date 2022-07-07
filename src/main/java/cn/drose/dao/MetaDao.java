@@ -27,10 +27,10 @@ public interface MetaDao {
 
     /**
      * 删除项目
-     * @param mid
+     * @param id
      * @return
      */
-    int deleteMetaById(@Param("mid") Integer mid);
+    int deleteMetaById(@Param("id") Integer id);
 
     /**
      * 更新项目
@@ -41,10 +41,10 @@ public interface MetaDao {
 
     /**
      * 根据编号获取项目
-     * @param mid
+     * @param id
      * @return
      */
-    MetaDomain getMetaById(@Param("mid") Integer mid);
+    MetaDomain getMetaById(@Param("id") Integer id);
 
 
     /**

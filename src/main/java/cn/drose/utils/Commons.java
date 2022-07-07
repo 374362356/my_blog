@@ -320,7 +320,7 @@ public class Commons {
      * @return
      */
     public static String permalink(ContentDomain contents) {
-        return permalink(contents.getCid(), contents.getSlug());
+        return permalink(contents.getId(), contents.getSlug());
     }
 
 

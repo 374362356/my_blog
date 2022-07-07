@@ -22,9 +22,9 @@ public interface UserDao {
      * @Author: Donghua.Chen
      * @Description: 根据主键编号获取用户信息
      * @Date: 2018/4/20
-     * @param uId 主键
+     * @param Id 主键
      */
-    UserDomain getUserInfoById(@Param("uid") Integer uId);
+    UserDomain getUserInfoById(@Param("id") Integer Id);
 
     /**
      * 根据用户名和密码获取用户信息

@@ -26,10 +26,10 @@ public interface ContentDao {
 
     /**
      * 根据编号删除文章
-     * @param cid
+     * @param id
      * @return
      */
-    int deleteArticleById(@Param("cid") Integer cid);
+    int deleteArticleById(@Param("id") Integer id);
 
     /**
      * 更新文章
@@ -40,20 +40,20 @@ public interface ContentDao {
 
     /**
      * 更新文章的评论数
-     * @param cid
+     * @param id
      * @param commentsNum
      * @return
      */
-    int updateArticleCommentCountById(@Param("cid") Integer cid, @Param("commentsNum") Integer commentsNum);
+    int updateArticleCommentCountById(@Param("id") Integer id, @Param("commentsNum") Integer commentsNum);
 
 
 
     /**
      * 根据编号获取文章
-     * @param cid
+     * @param id
      * @return
      */
-    ContentDomain getArticleById(@Param("cid") Integer cid);
+    ContentDomain getArticleById(@Param("id") Integer id);
 
     /**
      * 根据条件获取文章列表

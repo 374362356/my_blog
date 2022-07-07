@@ -6,7 +6,7 @@
     </sql>
 
     <sql id="BASE_COLUMN">
-        uid,username,password,email,homeUrl,screenName,created,activated,logged,groupName
+        id,username,password,email,homeUrl,screenName,created,activated,logged,groupName,isDel
     </sql>
 
     <update id="updateUserInfo" parameterType="cn.drose.model.UserDomain">
@@ -23,7 +23,7 @@
                 email = #{email, jdbcType=VARCHAR},
             </if>
         </set>
-        WHERE uid = #{uid, jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER}
     </update>
 
     <select id="getUserInfoById" resultType="cn.drose.model.UserDomain">
@@ -32,7 +32,7 @@
         FROM
         <include refid="BASE_TABLE"/>
         WHERE
-        uid = #{uid, jdbcType=INTEGER}
+        id = #{id, jdbcType=INTEGER} and isDel = 'N'
     </select>
 
     <select id="getUserInfoByCond" resultType="cn.drose.model.UserDomain">
@@ -41,6 +41,7 @@
         FROM
         <include refid="BASE_TABLE"/>
         <where>
+            isDel = 'N'
             <if test="username != null">
                 AND username = #{username, jdbcType=VARCHAR}
             </if>

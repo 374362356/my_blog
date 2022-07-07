@@ -8,7 +8,7 @@
 
     <!-- 网站配置基本列 -->
     <sql id="BASE_COLUMN">
-        o.name, o.value,o.description
+        o.id, o.name, o.value,o.description
     </sql>
 
 

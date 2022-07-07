@@ -90,7 +90,7 @@ public class CommentServiceImpl implements CommentService {
             commentDao.addComment(comments);
 
             ContentDomain temp = new ContentDomain();
-            temp.setCid(article.getCid());
+            temp.setId(article.getId());
             Integer count = article.getCommentsNum();
             if (null == count) {
                 count = 0;
@@ -117,7 +117,7 @@ public class CommentServiceImpl implements CommentService {
         //删除子评论
         if (null != childComments && childComments.size() > 0){
             for (int i = 0; i < childComments.size(); i++) {
-                commentDao.deleteComment(childComments.get(i).getCoid());
+                commentDao.deleteComment(childComments.get(i).getId());
                 count++;
             }
         }

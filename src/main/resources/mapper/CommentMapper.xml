@@ -8,7 +8,7 @@
 
     <!-- 基本列 -->
     <sql id="BASE_COLUMN">
-        cm.coid, cm.cid, cm.created, cm.author, cm.authorId, cm.ownerId, cm.mail,
+        cm.id, cm.cid, cm.created, cm.author, cm.authorId, cm.ownerId, cm.mail,
         cm.url, cm.ip, cm.agent, cm.type, cm.status, cm.parent, cm.content, cm.isDel
     </sql>
 
@@ -32,7 +32,7 @@
 <!--    <delete id="deleteComment">-->
 <!--        DELETE FROM-->
 <!--        <include refid="BASE_TABLE"/>-->
-<!--        WHERE coid = #{coid, jdbcType=INTEGER}-->
+<!--        WHERE id = #{id, jdbcType=INTEGER}-->
 <!--    </delete>-->
 
     <update id="deleteComment">
@@ -40,7 +40,7 @@
         <include refid="BASE_TABLE"/>
         set isDel = 'Y'
         WHERE
-        coid = #{coid, jdbcType=INTEGER}
+        id = #{id, jdbcType=INTEGER}
     </update>
 
     <!-- 更新评论的状态 -->
@@ -48,7 +48,7 @@
         UPDATE
         <include refid="BASE_TABLE"/>
         SET status = #{status, jdbcType=VARCHAR}
-        WHERE coid = #{coid, jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER}
     </update>
 
     <select id="getCommentById" resultType="cn.drose.model.CommentDomain">
@@ -56,7 +56,7 @@
         <include refid="BASE_COLUMN"/>
         FROM
         <include refid="BASE_TABLE"/> AS cm
-        WHERE cm.coid = #{coid, jdbcType=INTEGER}
+        WHERE cm.id = #{id, jdbcType=INTEGER}
             and cm.isDel = 'N'
     </select>
 
@@ -100,7 +100,7 @@
         SELECT count(*)
         FROM
         <include refid="BASE_TABLE"/>
-        where isDel = 'N'
+        where isDel = 'N' and status = 'approved'
     </select>
 
 

@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int updateUserInfo(UserDomain user) {
-        if (null == user.getUid())
+        if (null == user.getId())
             throw BusinessException.withErrorCode("用户编号不可能为空");
         return userDao.updateUserInfo(user);
     }

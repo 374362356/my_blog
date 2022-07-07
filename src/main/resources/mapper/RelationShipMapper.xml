@@ -7,7 +7,7 @@
     </sql>
 
     <sql id="BASE_COLUMN">
-        rs.cid, rs.mid
+        rs.id, rs.cid, rs.mid
     </sql>
 
     <insert id="addRelationShip" parameterType="cn.drose.model.RelationShipDomain">

@@ -1,12 +1,15 @@
 package cn.drose.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 网站图片文件相关
- * Created by Donghua.Chen on 2018/4/29.
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AttAchDomain {
 
     /** 主键编号 */

@@ -65,7 +65,7 @@ public class ContentServiceImpl implements ContentService {
 
         contentDao.addArticle(contentDomain);
 
-        int cid = contentDomain.getCid();
+        int cid = contentDomain.getId();
         metaService.addMetas(cid, tags, Types.TAG.getType());
         metaService.addMetas(cid, categories, Types.CATEGORY.getType());
     }
@@ -81,7 +81,7 @@ public class ContentServiceImpl implements ContentService {
         List<CommentDomain> comments = commentDao.getCommentsByCId(cid);
         if (null != comments && comments.size() > 0){
             comments.forEach(comment ->{
-                commentDao.deleteComment(comment.getCoid());
+                commentDao.deleteComment(comment.getId());
             });
         }
         //删除标签和分类关联
@@ -101,7 +101,7 @@ public class ContentServiceImpl implements ContentService {
         String categories = contentDomain.getCategories();
 
         contentDao.updateArticleById(contentDomain);
-        int cid = contentDomain.getCid();
+        int cid = contentDomain.getId();
         relationShipDao.deleteRelationShipByCid(cid);
         metaService.addMetas(cid, tags, Types.TAG.getType());
         metaService.addMetas(cid, categories, Types.CATEGORY.getType());
@@ -127,7 +127,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     @CacheEvict(value={"atricleCache","atricleCaches"},allEntries=true,beforeInvocation=true)
     public void updateContentByCid(ContentDomain content) {
-        if (null != content && null != content.getCid()) {
+        if (null != content && null != content.getId()) {
             contentDao.updateArticleById(content);
         }
     }

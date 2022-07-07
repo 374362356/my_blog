@@ -109,7 +109,7 @@ public class AttAchController {
             AttAchDomain attAch = new AttAchDomain();
             HttpSession session = request.getSession();
             UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
-            attAch.setAuthorId(sessionUser.getUid());
+            attAch.setAuthorId(sessionUser.getId());
             attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
             attAch.setFname(fileName);
             attAch.setIsDel("N");
@@ -161,7 +161,7 @@ public class AttAchController {
                 AttAchDomain attAch = new AttAchDomain();
                 HttpSession session = request.getSession();
                 UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
-                attAch.setAuthorId(sessionUser.getUid());
+                attAch.setAuthorId(sessionUser.getId());
                 attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
                 attAch.setFname(fileName);
                 if (!WebConst.switch_flag.equals(flag)){

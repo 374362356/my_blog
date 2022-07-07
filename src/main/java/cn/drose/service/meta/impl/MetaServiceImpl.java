@@ -65,7 +65,7 @@ public class MetaServiceImpl implements MetaService {
                 if (null != mid){
                     MetaDomain meta = metaDao.getMetaById(mid);
                     if (null != meta)
-                        metaDomain.setMid(mid);
+                        metaDomain.setId(mid);
 
                     metaDao.updateMeta(metaDomain);
                     //更新原有的文章分类
@@ -110,7 +110,7 @@ public class MetaServiceImpl implements MetaService {
         MetaDomain metaDomain;
         if (metas.size() == 1){
             MetaDomain meta = metas.get(0);
-            mid = meta.getMid();
+            mid = meta.getId();
         }else if (metas.size() > 1){
             throw BusinessException.withErrorCode(ErrorConstant.Meta.NOT_ONE_RESULT);
         } else {
@@ -120,7 +120,7 @@ public class MetaServiceImpl implements MetaService {
             metaDomain.setType(type);
             metaDomain.setIsDel("N");
             this.addMeta(metaDomain);
-            mid = metaDomain.getMid();
+            mid = metaDomain.getId();
         }
         if (mid != 0){
             Long count = relationShipDao.getCountById(cid, mid);
@@ -152,7 +152,7 @@ public class MetaServiceImpl implements MetaService {
                     ContentDomain article = contentService.getArticleById(relationShip.getCid());
                     if (null != article){
                         ContentDomain temp = new ContentDomain();
-                        temp.setCid(relationShip.getCid());
+                        temp.setId(relationShip.getCid());
                         if (type.equals(Types.CATEGORY.getType())) {
                             temp.setCategories(reMeta(name, article.getCategories()));
                         }
@@ -174,7 +174,7 @@ public class MetaServiceImpl implements MetaService {
     @Override
     @CacheEvict(value={"metaCaches","metaCache"},allEntries=true,beforeInvocation=true)
     public void updateMeta(MetaDomain meta) {
-        if (null == meta || null == meta.getMid())
+        if (null == meta || null == meta.getId())
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         metaDao.updateMeta(meta);
 

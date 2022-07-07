@@ -113,7 +113,7 @@ public class HomeController extends BaseController{
         contentCond.setType(Types.ARTICLE.getType());
 //        this.blogBaseData(request, contentCond);//获取公共分类标签等数据
         //更新文章的点击量
-        this.updateArticleHit(atricle.getCid(),atricle.getHits());
+        this.updateArticleHit(atricle.getId(),atricle.getHits());
         List<CommentDomain> commentsPaginator = commentService.getCommentsByCId(cid);
         request.setAttribute("comments", commentsPaginator);
         request.setAttribute("active","blog");
@@ -134,7 +134,7 @@ public class HomeController extends BaseController{
         hits = null == hits ? 1 : hits + 1;
         if (hits >= WebConst.HIT_EXCEED) {
             ContentDomain temp = new ContentDomain();
-            temp.setCid(cid);
+            temp.setId(cid);
             temp.setHits(chits + hits);
             contentService.updateContentByCid(temp);
             cache.hset("article", "hits", 1);

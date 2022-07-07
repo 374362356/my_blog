@@ -13,7 +13,7 @@
 
     <!-- 文章的基本列 -->
     <sql id="BASE_COLUMN">
-        c.cid, c.title, c.titlePic, c.slug, c.created, c.modified, c.content, c.authorId,
+        c.id, c.title, c.titlePic, c.slug, c.created, c.modified, c.content, c.authorId,
         c.type, c.status, c.tags, c.categories, c.hits, c.commentsNum, c.allowComment,
         c.allowPing, c.allowFeed, c.isDel
     </sql>
@@ -24,7 +24,7 @@
     </sql>
 
     <!-- 添加文章 -->
-    <insert id="addArticle" parameterType="cn.drose.model.ContentDomain" useGeneratedKeys="true" keyProperty="cid">
+    <insert id="addArticle" parameterType="cn.drose.model.ContentDomain" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -45,14 +45,14 @@
 <!--    <delete id="deleteArticleById">-->
 <!--        DELETE FROM-->
 <!--        <include refid="BASE_TABLE"/>-->
-<!--        WHERE cid = #{cid, jdbcType=INTEGER}-->
+<!--        WHERE id = #{id, jdbcType=INTEGER}-->
 <!--    </delete>-->
 
     <update id="deleteArticleById">
         update
         <include refid="BASE_TABLE"/>
         set isDel = 'Y'
-        WHERE cid = #{cid, jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER}
     </update>
 
     <!-- 更新文章信息 -->
@@ -101,14 +101,14 @@
                 allowFeed = #{allowFeed, jdbcType=INTEGER},
             </if>
         </set>
-        WHERE cid = #{cid, jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER}
     </update>
 
     <update id="updateArticleCommentCountById" >
         UPDATE
         <include refid="BASE_TABLE"/>
         SET commentsNum = #{commentsNum, jdbcType=INTEGER}
-        WHERE cid = #{cid, jdbcType=INTEGER}
+        WHERE id = #{id, jdbcType=INTEGER}
     </update>
 
 
@@ -118,7 +118,7 @@
         <include refid="BASE_COLUMN"/>
         FROM
         <include refid="BASE_TABLE"/> AS c
-        WHERE c.cid = #{cid, jdbcType=INTEGER}
+        WHERE c.id = #{id, jdbcType=INTEGER}
             and c.isDel = 'N'
     </select>
 
@@ -193,7 +193,7 @@
     
     <select id="getRecentlyArticle" resultType="cn.drose.model.ContentDomain">
         SELECT
-            cid, title
+            id, title
         FROM
         <include refid="BASE_TABLE"/>
         where isDel = 'N'

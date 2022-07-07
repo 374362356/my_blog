@@ -73,9 +73,9 @@ public class AuthController extends BaseController{
             UserDomain userInfo = userService.login(username, password);
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, userInfo);
             if (StringUtils.isNotBlank(remeber_me)) {
-                TaleUtils.setCookie(response, userInfo.getUid());
+                TaleUtils.setCookie(response, userInfo.getId());
             }
-            logService.addLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), userInfo.getUid());
+            logService.addLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), userInfo.getId());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             error_count = null == error_count ? 1 : error_count + 1;

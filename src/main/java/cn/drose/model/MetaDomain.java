@@ -1,14 +1,17 @@
 package cn.drose.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
  * 项目类
- * Created by Donghua.Chen on 2018/4/29.
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MetaDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,7 +19,7 @@ public class MetaDomain implements Serializable {
     /**
      * 项目主键
      */
-    private Integer mid;
+    private Integer id;
 
     /**
      * 名称

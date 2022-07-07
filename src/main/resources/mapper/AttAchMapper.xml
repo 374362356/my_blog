@@ -95,7 +95,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS aa
         LEFT JOIN <include refid="TABLE_USER"/> AS u
-        ON aa.authorId = u.uid
+        ON aa.authorId = u.id
         WHERE aa.id = #{id, jdbcType=INTEGER}
             and aa.isDel = 'N'
     </select>
@@ -110,7 +110,7 @@
         FROM
         <include refid="BASE_TABLE"/> AS aa
         LEFT JOIN <include refid="TABLE_USER"/> AS u
-        ON aa.authorId = u.uid
+        ON aa.authorId = u.id
         where aa.isDel = 'N'
         ORDER BY aa.created DESC
     </select>

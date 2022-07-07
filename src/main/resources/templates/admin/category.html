@@ -35,10 +35,10 @@
                                                 <span
                                                         class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu">
-                                                <li><a href="javascript:void(0)" th:attr="mid=${c.mid},cname=${c.name}"
+                                                <li><a href="javascript:void(0)" th:attr="mid=${c.id},cname=${c.name}"
                                                        class="edit-category">修改</a>
                                                 </li>
-                                                <li><a href="javascript:void(0)" th:attr="mid=${c.mid}"
+                                                <li><a href="javascript:void(0)" th:attr="mid=${c.id}"
                                                        class="del-category">删除</a></li>
                                             </ul>
                                         </th:block>
@@ -64,7 +64,7 @@
                                             <span
                                                     class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="javascript:void(0)" th:attr="mid=${c.mid}"
+                                            <li><a href="javascript:void(0)" th:attr="mid=${c.id}"
                                                    class="del-category">删除</a></li>
                                         </ul>
                                     </div>

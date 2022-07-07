@@ -1,17 +1,5 @@
 /*
- Navicat Premium Data Transfer
-
- Source Server         : mycould
- Source Server Type    : MariaDB
- Source Server Version : 50556
- Source Host           : 118.25.36.41
- Source Database       : lu_tale
-
- Target Server Type    : MariaDB
- Target Server Version : 50556
- File Encoding         : utf-8
-
- Date: 05/03/2018 17:01:52 PM
+ Date: 07/07/2022 10:11:52 AM
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +15,8 @@ CREATE TABLE `t_attach` (
   `ftype` varchar(50) DEFAULT '',
   `fkey` text NOT NULL,
   `authorId` int(10) DEFAULT NULL,
-  `created` int(10) NOT NULL,
+  `created` int(10) NOT NULL ,
+  `isDel` char(2) DEFAULT 'N',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -38,7 +27,7 @@ CREATE TABLE `t_attach` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_comments`;
 CREATE TABLE `t_comments` (
-  `coid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cid` int(10) unsigned DEFAULT '0',
   `created` int(10) unsigned DEFAULT '0',
   `author` varchar(200) DEFAULT NULL,
@@ -52,8 +41,9 @@ CREATE TABLE `t_comments` (
   `type` varchar(16) DEFAULT 'comment',
   `status` varchar(16) DEFAULT 'approved',
   `parent` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`coid`),
-  KEY `cid` (`cid`),
+  `isDel` char(2) DEFAULT 'N',
+  PRIMARY KEY (`id`),
+  KEY `cid` (`id`),
   KEY `created` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -62,7 +52,7 @@ CREATE TABLE `t_comments` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_contents`;
 CREATE TABLE `t_contents` (
-  `cid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) DEFAULT NULL,
   `titlePic` varchar(55) DEFAULT NULL,
   `slug` varchar(200) DEFAULT NULL,
@@ -79,7 +69,8 @@ CREATE TABLE `t_contents` (
   `allowComment` tinyint(1) DEFAULT '1',
   `allowPing` tinyint(1) DEFAULT '1',
   `allowFeed` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`cid`),
+  `isDel` char(2) DEFAULT 'N',
+  PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `created` (`created`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -103,7 +94,7 @@ CREATE TABLE `t_logs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_metas`;
 CREATE TABLE `t_metas` (
-  `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
   `slug` varchar(200) DEFAULT NULL,
   `type` varchar(32) NOT NULL DEFAULT '',
@@ -111,7 +102,8 @@ CREATE TABLE `t_metas` (
   `description` varchar(200) DEFAULT NULL,
   `sort` int(10) unsigned DEFAULT '0',
   `parent` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`mid`),
+  `isDel` char(2) DEFAULT 'N',
+  PRIMARY KEY (`id`),
   KEY `slug` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -120,10 +112,11 @@ CREATE TABLE `t_metas` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_options`;
 CREATE TABLE `t_options` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL DEFAULT '',
   `value` varchar(1000) DEFAULT '',
   `description` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -138,9 +131,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_relationships`;
 CREATE TABLE `t_relationships` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cid` int(10) unsigned NOT NULL,
   `mid` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`cid`,`mid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -148,7 +142,7 @@ CREATE TABLE `t_relationships` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users` (
-  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
@@ -158,7 +152,8 @@ CREATE TABLE `t_users` (
   `activated` int(10) unsigned DEFAULT '0',
   `logged` int(10) unsigned DEFAULT '0',
   `groupName` varchar(16) DEFAULT 'visitor',
-  PRIMARY KEY (`uid`),
+  `isDel` char(2) DEFAULT 'N',
+  PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`),
   UNIQUE KEY `mail` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;

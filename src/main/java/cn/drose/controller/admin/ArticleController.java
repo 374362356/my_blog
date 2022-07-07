@@ -183,7 +183,7 @@ public class ArticleController extends BaseController {
                     Boolean allowComment
     ){
         ContentDomain contentDomain = new ContentDomain();
-        contentDomain.setCid(cid);
+        contentDomain.setId(cid);
         contentDomain.setTitle(title);
         contentDomain.setTitlePic(titlePic);
         contentDomain.setSlug(slug);
